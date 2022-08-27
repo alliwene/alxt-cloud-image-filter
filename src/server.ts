@@ -35,19 +35,17 @@ function getErrorMessage(error: unknown) {
 
   /**************************************************************************** */
 
-  app.get(
-    "/filteredimage",
-    async (req: Request, res: Response) => {
-      let {image_url} = req.query;
+  app.get("/filteredimage", async (req: Request, res: Response) => {
+    let { image_url } = req.query;
 
-      // Validate image_url
-      if (!image_url) {
-        return res.status(400).send(getErrorMessage("image_url is required"));
-      }
+    // Validate image_url
+    if (!image_url) {
+      return res.status(400).send(getErrorMessage("image_url is required"));
+    }
 
-      // download, filter, and save the filtered image locally
-      try {
-        filterImageFromURL(image_url)
+    // download, filter, and save the filtered image locally
+    try {
+      filterImageFromURL(image_url)
         // absolute path to a filtered image locally saved files
         .then((filteredImage) => {
           // send resulting file in the response
@@ -59,13 +57,11 @@ function getErrorMessage(error: unknown) {
               deleteLocalFiles([filteredImage]);
             }
           });
-        })
-      } catch (error) {
-        return res.status(422).send(getErrorMessage(error));
-      }
-      
+        });
+    } catch (error) {
+      return res.status(422).send(getErrorMessage(error));
     }
-  );
+  });
 
   //! END @TODO1
 
