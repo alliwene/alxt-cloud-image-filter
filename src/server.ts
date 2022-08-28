@@ -36,7 +36,7 @@ function getErrorMessage(error: unknown) {
   /**************************************************************************** */
 
   app.get("/filteredimage", async (req: Request, res: Response) => {
-    let { image_url } = req.query;
+    let { image_url }: { image_url: string } = req.query;
 
     // Validate image_url
     if (!image_url) {
